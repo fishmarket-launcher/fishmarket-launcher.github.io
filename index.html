@@ -73,7 +73,7 @@ nav a:hover { color: var(--text); text-decoration: none; }
 .btn svg { width: 16px; height: 16px; fill: currentColor; }
 .meta { color: var(--muted); font-size: 13px; margin-top: 12px; }
 .meta code { font-size: 12px; }
-.shot { border-radius: 10px; border: 1px solid var(--border); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55); width: 100%; display: block; }
+.shot { border-radius: 10px; border: 1px solid var(--border); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55); width: 100%; height: auto; display: block; }
 
 section { padding: 56px 0; border-top: 1px solid var(--border); }
 h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); margin: 0 0 22px; font-weight: 700; }
@@ -87,7 +87,7 @@ h3 { font-size: 20px; margin: 0 0 8px; }
 .gallery figure { margin: 0; }
 .gallery figcaption { color: var(--muted); font-size: 14px; margin-top: 10px; }
 .gallery .tall { grid-row: span 2; }
-.gallery .tall img { height: 100%; object-fit: cover; object-position: top; }
+.gallery .tall img { aspect-ratio: 550 / 760; object-fit: cover; object-position: top; }
 
 .steps { counter-reset: step; display: grid; gap: 14px; }
 .step { display: grid; grid-template-columns: 44px 1fr; gap: 16px; align-items: start; }
@@ -175,6 +175,7 @@ footer img.slint { height: 44px; display: block; }
       <figure><img class="shot" src="assets/shots/sgdb.webp" alt="Connect SteamGridDB" loading="lazy" width="1280" height="820"><figcaption>Connecting SteamGridDB for cover art.</figcaption></figure>
       <figure><img class="shot" src="assets/shots/picker.webp" alt="Theme picker" loading="lazy" width="1280" height="820"><figcaption>Themes, previewed as you move through them.</figcaption></figure>
       <figure><img class="shot" src="assets/shots/entry.webp" alt="Game details" loading="lazy" width="1280" height="820"><figcaption>Game details: launch options, save locations, cover.</figcaption></figure>
+      <figure><img class="shot" src="assets/shots/running.webp" alt="Running games" loading="lazy" width="1280" height="820"><figcaption>Running: live sessions with playtime and save status.</figcaption></figure>
     </div>
   </section>
 
