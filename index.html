@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FishMarket: your games, on every PC</title>
+<meta name="description" content="A Big Picture-style library and launcher for Windows games and apps. Your library and saves travel with you between PCs on a drive.">
+<meta property="og:title" content="FishMarket">
+<meta property="og:description" content="Your games and saves, on every PC.">
+<meta property="og:image" content="https://fishmarket-launcher.github.io/assets/icon-512.png">
+<link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/icon-256.png">
+<style>
+@font-face { font-family: Inter; font-weight: 400; font-display: swap; src: url(assets/fonts/Inter-Regular.woff2) format("woff2"); }
+@font-face { font-family: Inter; font-weight: 500; font-display: swap; src: url(assets/fonts/Inter-Medium.woff2) format("woff2"); }
+@font-face { font-family: Inter; font-weight: 600; font-display: swap; src: url(assets/fonts/Inter-SemiBold.woff2) format("woff2"); }
+@font-face { font-family: Inter; font-weight: 700; font-display: swap; src: url(assets/fonts/Inter-Bold.woff2) format("woff2"); }
+@font-face { font-family: "JetBrains Mono"; font-weight: 400; font-display: swap; src: url(assets/fonts/JetBrainsMono-Regular.woff2) format("woff2"); }
+
+:root {
+  --bg: #0b1118;
+  --page-top: #13202f;
+  --panel: #151f2b;
+  --raised: #1c2938;
+  --border: #253446;
+  --text: #f2f6fa;
+  --muted: #8b9bb0;
+  --accent: #1a9fff;
+  --play: #3f9b2b;
+  --radius: 6px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: linear-gradient(180deg, var(--page-top) 0, var(--bg) 720px) no-repeat, var(--bg);
+  color: var(--text);
+  font: 16px/1.6 Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code, pre { font-family: "JetBrains Mono", ui-monospace, Consolas, monospace; font-size: 14px; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+
+header.bar {
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(11, 17, 24, 0.86);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+header.bar .wrap { display: flex; align-items: center; gap: 28px; height: 56px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: 0.02em; color: var(--text); }
+.brand img { width: 28px; height: 28px; }
+nav { display: flex; gap: 22px; margin-left: auto; }
+nav a { color: var(--muted); font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+nav a:hover { color: var(--text); text-decoration: none; }
+
+.hero { display: grid; grid-template-columns: 1fr 1.25fr; gap: 56px; align-items: center; padding: 72px 0 56px; }
+.hero h1 { font-size: 56px; line-height: 1.05; margin: 18px 0 16px; letter-spacing: -0.02em; }
+.hero p.lead { font-size: 19px; color: var(--muted); margin: 0 0 28px; max-width: 34em; }
+.hero .icon { width: 88px; height: 88px; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  height: 48px; padding: 0 24px; border-radius: var(--radius);
+  font-weight: 600; font-size: 16px; border: 1px solid var(--border); color: var(--text);
+}
+.btn:hover { text-decoration: none; background: var(--raised); }
+.btn.play { background: var(--play); border-color: transparent; color: #fff; }
+.btn.play:hover { background: #4bb233; }
+.btn svg { width: 16px; height: 16px; fill: currentColor; }
+.meta { color: var(--muted); font-size: 13px; margin-top: 12px; }
+.meta code { font-size: 12px; }
+.shot { border-radius: 10px; border: 1px solid var(--border); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55); width: 100%; display: block; }
+
+section { padding: 56px 0; border-top: 1px solid var(--border); }
+h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); margin: 0 0 22px; font-weight: 700; }
+h3 { font-size: 20px; margin: 0 0 8px; }
+
+.features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.card { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
+.card p { margin: 0; color: var(--muted); font-size: 15px; }
+
+.gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.gallery figure { margin: 0; }
+.gallery figcaption { color: var(--muted); font-size: 14px; margin-top: 10px; }
+.gallery .tall { grid-row: span 2; }
+.gallery .tall img { height: 100%; object-fit: cover; object-position: top; }
+
+.steps { counter-reset: step; display: grid; gap: 14px; }
+.step { display: grid; grid-template-columns: 44px 1fr; gap: 16px; align-items: start; }
+.step::before {
+  counter-increment: step; content: counter(step);
+  width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--raised); border: 1px solid var(--border); font-weight: 700;
+}
+.step p { margin: 6px 0 0; color: var(--muted); }
+pre { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; overflow-x: auto; line-height: 1.7; margin: 10px 0 0; }
+pre .c { color: var(--muted); }
+
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+td, th { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+th { color: var(--muted); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; }
+td:first-child { white-space: nowrap; font-weight: 600; }
+
+.platforms { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.platforms .card h3 { display: flex; justify-content: space-between; align-items: baseline; }
+.tag { font-size: 12px; font-weight: 600; padding: 2px 10px; border-radius: 999px; background: var(--raised); color: var(--muted); }
+.tag.ok { background: rgba(63, 155, 43, 0.18); color: #7fd36a; }
+
+footer { border-top: 1px solid var(--border); padding: 36px 0 56px; color: var(--muted); font-size: 14px; }
+footer .wrap { display: flex; gap: 28px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+footer img.slint { height: 44px; display: block; }
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding-top: 40px; }
+  .hero h1 { font-size: 42px; }
+  .features, .platforms, .gallery { grid-template-columns: 1fr; }
+  nav { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="assets/icon.svg" alt="">FishMarket</a>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#screens">Screens</a>
+      <a href="#start">Get started</a>
+      <a href="#download">Download</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <div>
+      <img class="icon" src="assets/icon.svg" alt="FishMarket icon">
+      <h1>Your games, on every PC.</h1>
+      <p class="lead">FishMarket is a Big Picture-style library and launcher for Windows games and apps. Put your library on a drive, and your games and saves come with you to any PC.</p>
+      <div class="cta">
+        <a class="btn play" href="download/FishMarket-windows-x64.zip" download>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M7 1h2v8.6l3.3-3.3 1.4 1.4L8 13.4 2.3 7.7l1.4-1.4L7 9.6z"/><path d="M2 14h12v2H2z"/></svg>
+          Download for Windows
+        </a>
+        <a class="btn" href="https://github.com/fishmarket-launcher/fishmarket-launcher.github.io/releases/latest">All releases</a>
+      </div>
+      <div class="meta">Version 0.1.0 · Windows 10 and 11, 64-bit · 18 MB zip · Linux coming next, macOS later</div>
+    </div>
+    <img class="shot" src="assets/shots/library.webp" alt="The FishMarket library in its Big Picture layout, with the focused game's art across the top" width="1280" height="820">
+  </div>
+
+  <section id="features">
+    <h2>What it does</h2>
+    <div class="features">
+      <div class="card"><h3>Big Picture library</h3><p>Covers in mixed sizes, your recent games up front, and the focused game's art across the top (Big Art). Hard-edged themes after Steam's Big Picture, plus 100 more.</p></div>
+      <div class="card"><h3>Console home</h3><p>A PS5-inspired layout: one row of games, a big Play button, and cards for playtime, save sync and where the game lives.</p></div>
+      <div class="card"><h3>Saves that travel</h3><p>On a FishMarket drive, saves are restored before each launch and captured after it. If two PCs changed them, you choose which to keep.</p></div>
+      <div class="card"><h3>Controller first</h3><p>Xbox, PlayStation and Nintendo pads drive everything, with matching button hints, an on-screen keyboard and rumble on launch.</p></div>
+      <div class="card"><h3>Sound and music</h3><p>Soft interface sounds and ambient music that fades out while you play. Add your own MP3, FLAC, WAV, M4A or Ogg tracks.</p></div>
+      <div class="card"><h3>Cover art in one step</h3><p>Connect SteamGridDB with a free key: copy it on their site and FishMarket picks it up from the clipboard, then fetches every missing cover.</p></div>
+    </div>
+  </section>
+
+  <section id="screens">
+    <h2>Screens</h2>
+    <div class="gallery">
+      <figure><img class="shot" src="assets/shots/console.webp" alt="Console home" loading="lazy" width="1280" height="820"><figcaption>The Console home: the focused game across the screen, a big Play button.</figcaption></figure>
+      <figure class="tall"><img class="shot" src="assets/shots/settings.webp" alt="Settings" loading="lazy" width="540" height="1500"><figcaption>Settings: layout, Big Art, sound and music, controller.</figcaption></figure>
+      <figure><img class="shot" src="assets/shots/console-info.webp" alt="Console info cards" loading="lazy" width="1280" height="820"><figcaption>Info cards: playtime, saves, library, runner, the live session.</figcaption></figure>
+      <figure><img class="shot" src="assets/shots/sgdb.webp" alt="Connect SteamGridDB" loading="lazy" width="1280" height="820"><figcaption>Connecting SteamGridDB for cover art.</figcaption></figure>
+      <figure><img class="shot" src="assets/shots/picker.webp" alt="Theme picker" loading="lazy" width="1280" height="820"><figcaption>Themes, previewed as you move through them.</figcaption></figure>
+      <figure><img class="shot" src="assets/shots/entry.webp" alt="Game details" loading="lazy" width="1280" height="820"><figcaption>Game details: launch options, save locations, cover.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="start">
+    <h2>Get started</h2>
+    <div class="steps">
+      <div class="step"><div><h3>Unzip and run</h3><p>Extract the zip anywhere (for example <code>C:\Games\FishMarket</code>) and start <code>FishMarket.exe</code>. Nothing is installed; your library lives in <code>%LOCALAPPDATA%\FishMarket</code>.</p></div></div>
+      <div class="step"><div><h3>Add your games</h3><p>In the bar at the bottom, type <code>/add</code> to pick a game's <code>.exe</code>, or <code>/scan</code> to pick a folder and choose the games found in it.</p></div></div>
+      <div class="step"><div><h3>Get the covers</h3><p>Click <b>Connect SteamGridDB</b> on the library banner, open their API page, log in with Steam and copy your key. Come back, and FishMarket connects and fetches the art.</p></div></div>
+      <div class="step"><div><h3>Play</h3><p>Pick a game and press <b>Enter</b> (or <b>A</b> on a controller). FishMarket tracks your playtime and saves while it runs. The layout toggle at the top right switches between Big Picture and Console.</p></div></div>
+      <div class="step"><div><h3>Take it with you (optional)</h3><p>Turn a USB drive into a FishMarket drive, then add games to it. Start <code>FishMarket.exe</code> from the drive on any PC.</p>
+<pre><span class="c"># from the folder you unzipped</span>
+fmk market init E:\ --drive --name "Game Drive"
+fmk --market E:\FishMarket add E:\Games\Tidewater\Tidewater.exe</pre></div></div>
+    </div>
+  </section>
+
+  <section id="keys">
+    <h2>Controls</h2>
+    <table>
+      <tr><th>Action</th><th>Keyboard</th><th>Controller</th></tr>
+      <tr><td>Move</td><td>Arrow keys</td><td>D-pad or left stick (triggers page)</td></tr>
+      <tr><td>Play / select</td><td>Enter</td><td>A (Cross on PlayStation)</td></tr>
+      <tr><td>Back / close</td><td>Esc</td><td>B (Circle)</td></tr>
+      <tr><td>Details</td><td>Ctrl+E</td><td>X (Square)</td></tr>
+      <tr><td>Favorite</td><td>in details (Ctrl+E)</td><td>Y (Triangle)</td></tr>
+      <tr><td>Switch tabs</td><td>Ctrl+1 … Ctrl+6</td><td>LB / RB</td></tr>
+      <tr><td>Settings</td><td>gear icon</td><td>Menu (Options, +)</td></tr>
+      <tr><td>Big Picture ⇄ Console</td><td>toggle at the top right</td><td>View (Create, −)</td></tr>
+      <tr><td>Bring FishMarket forward</td><td>—</td><td>Guide (PS, Home)</td></tr>
+      <tr><td>Full screen</td><td>F11</td><td>F11, or Settings › Controller</td></tr>
+      <tr><td>Filter and commands</td><td>type; <code>/</code> for commands</td><td>A on a text field opens the keyboard</td></tr>
+    </table>
+  </section>
+
+  <section id="download">
+    <h2>Download</h2>
+    <div class="platforms">
+      <div class="card">
+        <h3>Windows <span class="tag ok">Available</span></h3>
+        <p>Windows 10 and 11, 64-bit. One zip with <code>FishMarket.exe</code> (the app) and <code>fmk.exe</code> (the command line).</p>
+        <div class="cta" style="margin-top:18px"><a class="btn play" href="download/FishMarket-windows-x64.zip" download>Download</a></div>
+        <div class="meta">SHA-256 <code>1fc8d8fc…bcb79dc8</code> · <a href="download/SHA256SUMS.txt">SHA256SUMS.txt</a></div>
+      </div>
+      <div class="card">
+        <h3>Linux <span class="tag">Next</span></h3>
+        <p>Runs Windows games through Proton or Wine (umu). The code is built and type-checked for Linux; a tested build comes next.</p>
+      </div>
+      <div class="card">
+        <h3>macOS <span class="tag">Later</span></h3>
+        <p>Planned. The app icon and the core are ready for it.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>FishMarket · <a href="https://github.com/fishmarket-launcher">github.com/fishmarket-launcher</a><br>
+      Fonts: Inter and JetBrains Mono (SIL OFL). Cover art in screenshots is placeholder art.</div>
+    <a href="https://slint.dev" title="FishMarket's interface is built with Slint"><img class="slint" src="assets/made-with-slint.svg" alt="Made with Slint"></a>
+  </div>
+</footer>
+
+</body>
+</html>
