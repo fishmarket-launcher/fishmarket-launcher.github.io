@@ -149,6 +149,7 @@ footer img.slint { height: 44px; display: block; }
     <nav>
       <a href="#features">Features</a>
       <a href="#how">How it works</a>
+      <a href="#saves">Saves</a>
       <a href="#screens">Screens</a>
       <a href="#start">Get started</a>
       <a href="#download">Download</a>
@@ -215,7 +216,7 @@ footer img.slint { height: 44px; display: block; }
 
     <div class="how-sub">The details</div>
     <div class="features how-details">
-      <div class="card"><h3>Saves travel with you</h3><p>Restore, play, capture. Before a game starts, FishMarket copies the latest saves from the drive to where the game expects them on that computer. After the game closes, it copies the changes back. If two computers changed the same game's saves since they last met, it asks which one to keep and moves the other to the drive's trash. It never merges and never silently overwrites.</p></div>
+      <div class="card"><h3>Saves travel with you</h3><p>Restore, play, capture. Before a game starts, FishMarket copies the latest saves from the drive to where the game expects them on that computer. After the game closes, it copies the changes back. If two computers changed the same game's saves since they last met, it asks which one to keep and moves the other to the drive's trash. It never merges and never silently overwrites. <a href="#saves">More on saves</a></p></div>
       <div class="card"><h3>Some things stay on each computer</h3><p>On Linux and macOS each game gets a private fake C: drive (a Wine prefix). Those and the Wine or Proton engines stay on the computer, because exFAT can't hold them. The drive carries a recipe, so each computer rebuilds them. The first launch on Linux downloads Proton and the Steam runtime (about 1.5 GB), unless the drive carries offline kits.</p></div>
       <div class="card"><h3>No drive needed</h3><p>Each build also works as a normal app with a library on the computer itself. Moving between computers only kicks in when you use a FishMarket drive. Make one with <code>fmk market init E:\ --drive --name "Game Drive"</code>.</p></div>
       <div class="card"><h3>Limits</h3><p>Games with kernel anti-cheat, or copy protection that rejects Wine, won't run on Linux or macOS. Games that must be installed (with drivers or services) can't be carried on a drive.</p></div>
@@ -227,6 +228,48 @@ footer img.slint { height: 44px; display: block; }
       <li><b>Linux</b><span class="tag">Next</span><span>The code is written, type-checked and unit-tested, but has not yet run on a real Linux computer. No download yet.</span></li>
       <li><b>macOS</b><span class="tag">Later</span><span>Designed, not built. It will target Apple silicon Macs with macOS 14 or newer.</span></li>
     </ul>
+  </section>
+
+  <section id="saves">
+    <h2>Saves</h2>
+    <h3 class="how-title">Your progress, kept safe</h3>
+    <p class="how-intro">Windows games keep saves in three kinds of places: their own folder, your user folders (such as <code>AppData</code> or <code>Documents</code>), and the registry. Only the game's own folder is on the drive. FishMarket looks after the rest.</p>
+
+    <div class="how-sub">Finding a game's saves</div>
+    <div class="features">
+      <div class="card"><h3>From a shared list</h3><p>FishMarket looks the game up in the Ludusavi manifest, a public list of save locations built from PCGamingWiki, and fills in the folders and registry keys it names.</p></div>
+      <div class="card"><h3>By watching the game</h3><p>On Windows, it notes new folders that appear while a game runs and suggests the likely ones. Nothing is used until you confirm it. In the Linux build each game has its own fake C: drive, so anything new there must be that game's, and the locations are exact.</p></div>
+      <div class="card"><h3>From you</h3><p>Add or remove locations in the game's details screen, or from the command line. Locations are written in a form every computer can resolve, such as "Local AppData", not a fixed path.</p></div>
+    </div>
+
+    <div class="how-sub">Every time you play</div>
+    <div class="steps">
+      <div class="step"><div><h3>Check</h3><p>FishMarket compares the saves on this computer with the copy on the drive. If this computer is behind, it restores. If they match, it does nothing. If this computer has changes the drive never got (say, from a game played outside FishMarket), it saves them to the drive first.</p></div></div>
+      <div class="step"><div><h3>Restore</h3><p>The drive's saves are copied into place: your user folders and registry on Windows, or the game's fake C: drive on Linux.</p></div></div>
+      <div class="step"><div><h3>Play</h3><p>The game runs as usual. FishMarket waits until it and every process it started have closed.</p></div></div>
+      <div class="step"><div><h3>Capture</h3><p>Changed files and registry keys are copied back to the drive. Files the game replaced or deleted go to the drive's trash first, so nothing is lost.</p></div></div>
+    </div>
+
+    <div class="how-sub">When something goes wrong</div>
+    <div class="features how-details">
+      <div class="card"><h3>Two computers, two versions</h3><p>If both this computer and the drive changed since they last met, FishMarket stops and shows both sides with their file times and sizes. You keep one; the other goes to the trash. It never merges and never picks for you.</p></div>
+      <div class="card"><h3>Drive pulled mid-game</h3><p>The saves stay on that computer, and FishMarket captures them the next time the drive is plugged in there. If you play on another PC first, you get the choice above instead of a silent overwrite.</p></div>
+      <div class="card"><h3>Crash during a copy</h3><p>A capture is staged on the drive and only counts once it finishes. If it is cut off, the next start puts the old files back from the trash and tries again.</p></div>
+      <div class="card"><h3>Undo</h3><p>The trash keeps the files replaced by the last five sessions. Files are compared by content, not by date, because Windows, Linux and exFAT disagree about timestamps.</p></div>
+    </div>
+
+    <div class="how-sub">Also</div>
+    <div class="features how-details">
+      <div class="card"><h3>Without a drive</h3><p>The same system runs on a single PC. There it acts as a backup: each session's changes are kept in your library, with the same trash.</p></div>
+      <div class="card"><h3>Leave no trace</h3><p>Playing on someone else's Windows PC? Turn this on and FishMarket removes its logs when it closes, and the game's save files from that PC once they are safely on the drive.</p></div>
+    </div>
+
+    <div class="how-sub">From the command line</div>
+<pre>fmk saves status Tidewater      <span class="c"># where the saves are and what happens at the next launch</span>
+fmk saves manifest Tidewater    <span class="c"># fill locations from the Ludusavi manifest</span>
+fmk saves rules Tidewater --add '&lt;winLocalAppData&gt;/Example Studio/Tidewater'
+fmk saves capture Tidewater     <span class="c"># copy this PC's saves to the drive now</span>
+fmk saves resolve Tidewater --keep drive</pre>
   </section>
 
   <section id="screens">
