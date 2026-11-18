@@ -5,5 +5,5 @@
 <clipPath id="c"><rect width="1024" height="1024" rx="225.3"/></clipPath>
 </defs>
 <g clip-path="url(#c)"><rect width="1024" height="1024" fill="url(#t)"/><rect width="1024" height="1024" fill="url(#g)"/></g>
-<g transform="translate(33.81 52.94) scale(2.12528)"><path d="M 180 323 L 132 321 C 100 318 84 308 80 290 C 74 260 70 200 72 170 C 74 140 92 128 120 127 C 165 125 190 145 220 170 C 245 192 260 205 275 215 C 300 235 325 255 345 262 C 360 266 366 248 370 225 C 376 180 378 110 374 80 C 372 66 362 70 352 84 C 320 130 290 180 270 215 C 245 262 222 310 196 340 C 180 358 160 365 152 352 C 146 342 142 332 140 324" fill="none" stroke="#f2f6fa" stroke-width="25.05" stroke-linecap="round" stroke-linejoin="round"/><circle cx="131.0" cy="267.0" r="15.53" fill="#f2f6fa"/></g>
+<g transform="translate(33.81 52.94) scale(2.12528)"><path d="M 180 323 L 132 321 C 100 318 84 308 80 290 C 74 260 70 200 72 170 C 74 140 92 128 120 127 C 165 125 190 145 220 170 C 245 192 260 205 275 215 C 300 235 325 255 345 262 C 360 266 366 248 370 225 C 376 180 378 110 374 80 C 372 66 362 70 352 84 C 320 130 290 180 270 215 C 245 262 222 310 196 340 C 180 358 160 365 152 352 C 146 342 142 332 140 324" fill="none" stroke="#f2f6fa" stroke-width="17.35" stroke-linecap="round" stroke-linejoin="round"/><circle cx="131.0" cy="267.0" r="10.75" fill="#f2f6fa"/></g>
 </svg>
