@@ -171,11 +171,11 @@ footer img.slint { height: 44px; display: block; }
       <div class="cta">
         <a class="btn play pkg" href="download/FishMarket.zip" download>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2 3 6.5v11L12 22l9-4.5v-11L12 2zm0 2.2 6.6 3.3-6.6 3.3-6.6-3.3L12 4.2zM5 9.1l6 3v7.6l-6-3V9.1zm8 10.6v-7.6l6-3v7.6l-6 3z"/></svg>
-          <span class="label">Download FishMarket<span class="sub">Windows + Linux in one zip · 42 MB</span></span>
+          <span class="label">Download FishMarket<span class="sub">Windows + Linux in one zip · 43 MB</span></span>
         </a>
         <a class="btn" href="#download">All releases</a>
       </div>
-      <div class="meta">Version 0.3.0 · Windows 10 and 11, 64-bit · Linux x86_64, not yet tested on a real Linux PC · macOS later</div>
+      <div class="meta">Version 0.3.1 · Windows 10 and 11, 64-bit · Linux x86_64, not yet tested on a real Linux PC · macOS in progress</div>
     </div>
     <img class="shot" src="assets/shots/library.webp" alt="The FishMarket library in its Big Picture layout, with the focused game's art across the top" width="1280" height="820">
   </div>
@@ -201,15 +201,15 @@ footer img.slint { height: 44px; display: block; }
 
     <div class="how-drive">
 <pre><span class="c">E:\  (exFAT)</span>
-  FishMarket.exe       <span class="c">Windows app</span>
-  fishmarket-x86_64    <span class="c">Linux app (preview)</span>
-  FishMarket.app       <span class="c">macOS app (planned)</span>
-  FishMarket\          <span class="c">the one library: games list,</span>
-                       <span class="c">art, playtime, saves</span>
-  Games\…              <span class="c">the games themselves</span></pre>
+  FishMarket-Windows.exe   <span class="c">Windows app</span>
+  FishMarket-Linux         <span class="c">Linux app (preview)</span>
+  FishMarket-macOS.app     <span class="c">macOS app (in progress)</span>
+  FishMarket\              <span class="c">the one library: games list,</span>
+                           <span class="c">art, playtime, saves</span>
+  Games\…                  <span class="c">the games themselves</span></pre>
       <div class="card">
         <h3>One app per system, one shared library</h3>
-        <p>A Windows <code>.exe</code> can't run on Linux or macOS, so each system gets its own build of the same app: same look, same features. On a FishMarket drive they sit side by side next to one library folder. You open the app that matches the computer you're on, and every build reads and writes the same <code>FishMarket\</code> folder.</p>
+        <p>A Windows <code>.exe</code> can't run on Linux or macOS, so each system gets its own build of the same app: same look, same features. On a FishMarket drive they sit side by side next to one library folder, each named for its system. You open the one for the computer you're on, and every build reads and writes the same <code>FishMarket\</code> folder.</p>
         <p style="margin-top:10px">The drive uses exFAT, the one format all three systems can read and write. macOS can't write NTFS, and Windows and Linux can't read APFS.</p>
       </div>
     </div>
@@ -233,7 +233,7 @@ footer img.slint { height: 44px; display: block; }
     <ul class="status">
       <li><b>Windows</b><span class="tag ok">Available</span><span>Download it below.</span></li>
       <li><b>Linux</b><span class="tag preview">Preview</span><span>A build is available below, but it has not yet run on a real Linux computer. Expect problems, and please report them.</span></li>
-      <li><b>macOS</b><span class="tag">Later</span><span>Designed, not built. It will target Apple silicon Macs with macOS 14 or newer.</span></li>
+      <li><b>macOS</b><span class="tag">In progress</span><span>The groundwork is built; it needs testing on a real Mac before there is a download. It targets Apple silicon Macs with macOS 14 or newer.</span></li>
     </ul>
   </section>
 
@@ -310,11 +310,11 @@ fmk saves resolve Tidewater --keep drive</pre>
   <section id="start">
     <h2>Get started</h2>
     <div class="steps">
-      <div class="step"><div><h3>Unzip and run</h3><p>Extract the zip anywhere (for example <code>C:\Games\FishMarket</code>) and start <code>FishMarket.exe</code>. Nothing is installed; your library lives in <code>%LOCALAPPDATA%\FishMarket</code>.</p></div></div>
+      <div class="step"><div><h3>Unzip and run</h3><p>Extract the zip anywhere (for example <code>C:\Games\FishMarket</code>) and start <code>FishMarket-Windows.exe</code>. Nothing is installed; your library lives in <code>%LOCALAPPDATA%\FishMarket</code>.</p></div></div>
       <div class="step"><div><h3>Add your games</h3><p>In the bar at the bottom, type <code>/add</code> to pick a game's <code>.exe</code>, or <code>/scan</code> to pick a folder and choose the games found in it.</p></div></div>
       <div class="step"><div><h3>Get the covers</h3><p>Click <b>Connect SteamGridDB</b> on the library banner, open their API page, log in with Steam and copy your key. Come back, and FishMarket connects and fetches the art.</p></div></div>
       <div class="step"><div><h3>Play</h3><p>Pick a game and press <b>Enter</b> (or <b>A</b> on a controller). FishMarket tracks your playtime and saves while it runs. The layout toggle at the top right switches between Big Picture and Console.</p></div></div>
-      <div class="step"><div><h3>Take it with you (optional)</h3><p>Turn a USB drive into a FishMarket drive, then add games to it. Start <code>FishMarket.exe</code> from the drive on any PC.</p>
+      <div class="step"><div><h3>Take it with you (optional)</h3><p>Turn a USB drive into a FishMarket drive, then add games to it. Start <code>FishMarket-Windows.exe</code> from the drive on any PC.</p>
 <pre><span class="c"># from the folder you unzipped</span>
 fmk market init E:\ --drive --name "Game Drive"
 fmk --market E:\FishMarket add E:\Games\Tidewater\Tidewater.exe</pre></div></div>
@@ -341,24 +341,24 @@ fmk --market E:\FishMarket add E:\Games\Tidewater\Tidewater.exe</pre></div></div
 
   <section id="download">
     <h2>Download</h2>
-    <p>The zip at the top of the page holds both builds side by side, ready to copy to a drive: <a href="download/FishMarket.zip" download>FishMarket.zip</a>, 42 MB. Or take just the one you need:</p>
-    <div class="meta" style="margin-bottom:18px">SHA-256 <code>dbf96e08…d64ac953</code> · <a href="download/SHA256SUMS.txt">SHA256SUMS.txt</a></div>
+    <p>The zip at the top of the page holds both builds side by side, ready to copy to a drive: <a href="download/FishMarket.zip" download>FishMarket.zip</a>, 43 MB. Or take just the one you need:</p>
+    <div class="meta" style="margin-bottom:18px">SHA-256 <code>53e999c3…afc3c20e</code> · <a href="download/SHA256SUMS.txt">SHA256SUMS.txt</a></div>
     <div class="platforms">
       <div class="card">
         <h3>Windows <span class="tag ok">Available</span></h3>
-        <p>Windows 10 and 11, 64-bit. One zip with <code>FishMarket.exe</code> (the app) and <code>fmk.exe</code> (the command line).</p>
+        <p>Windows 10 and 11, 64-bit. One zip with <code>FishMarket-Windows.exe</code> (the app) and <code>fmk.exe</code> (the command line).</p>
         <div class="cta" style="margin-top:18px"><a class="btn play" href="download/FishMarket-windows-x64.zip" download>Download the zip, 20 MB</a></div>
-        <div class="meta">SHA-256 <code>04608153…3d0a560e</code> · <a href="download/SHA256SUMS.txt">SHA256SUMS.txt</a></div>
+        <div class="meta">SHA-256 <code>74bf62ca…fdd4d7b3</code> · <a href="download/SHA256SUMS.txt">SHA256SUMS.txt</a></div>
       </div>
       <div class="card">
         <h3>Linux <span class="tag preview">Preview</span></h3>
         <p>x86_64, glibc 2.31 or newer (Ubuntu 20.04, Debian 11, Fedora 32 and later). Runs Windows games through Proton (via umu) or Wine, sharing the same drive and saves. <b>Not yet tested on a real Linux computer</b>: please report what works. <a href="#how">How it works</a></p>
         <div class="cta" style="margin-top:18px"><a class="btn" href="download/FishMarket-linux-x86_64.tar.gz" download>Download preview</a></div>
-        <div class="meta">SHA-256 <code>1243c2c7…62c8782c</code> · <a href="download/SHA256SUMS.txt">SHA256SUMS.txt</a></div>
+        <div class="meta">SHA-256 <code>748e188f…808eb7e6</code> · <a href="download/SHA256SUMS.txt">SHA256SUMS.txt</a></div>
       </div>
       <div class="card">
-        <h3>macOS <span class="tag">Later</span></h3>
-        <p>Designed, not built yet. It will target Apple silicon Macs with macOS 14 or newer, running Windows games through Wine with a Direct3D-to-Metal layer. <a href="#how">How it works</a></p>
+        <h3>macOS <span class="tag">In progress</span></h3>
+        <p>The groundwork is built: FishMarket compiles for macOS and plans Mac launches. There is no download yet, because it has not been tested on a real Mac. It targets Apple silicon Macs with macOS 14 or newer, running Windows games through Wine with a Direct3D-to-Metal layer. <a href="#how">How it works</a></p>
       </div>
     </div>
     <p class="meta">Older versions are on <a href="https://github.com/fishmarket-launcher/fishmarket-launcher.github.io/releases">GitHub releases</a>.</p>
